@@ -1,17 +1,12 @@
 {
   "expo": {
-    "name": "KoiTheApp",
-    "slug": "KoiTheApp",
+    "name": "Koi App",
+    "slug": "koi-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo_app.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.sophanny.KoiTheApp",
@@ -21,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/adaptive-icon.png", // Update this to a valid path
         "backgroundColor": "#ffffff"
       },
       "package": "com.sophanny.KoiTheApp"
@@ -31,8 +26,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "93de030d-25af-4825-94e7-634cd23bda8f"
+        "projectId": "3148c864-f890-4b20-90d9-295d23ce6cb0"
       }
-    }
+    },
+    "owner": "sophanny"
   }
 }

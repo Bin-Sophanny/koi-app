@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 18,
     fontWeight: "w400",
-    marginBottom: 12,
+    marginBottom: 10,
   },
   infoContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 12,
+    marginBottom: 10,
   },
   section: {
     alignItems: "flex-start",

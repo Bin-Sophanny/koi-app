@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView ,} from "react-native"; // Import ScrollView here
+import { View, StyleSheet, ScrollView , StatusBar, SafeAreaView} from "react-native"; // Import ScrollView here
 import ImageSlider from "../components/imageslider";
 import BalanceBubbles from "../components/BalanceBubbles";
 import PickupDeliveryRow from "../components/PickupDeliveryRow";
@@ -12,6 +12,7 @@ const HomeScreen = () => {
     require("../assets/slider4.jpg"),
   ];
   return (
+    
     <ScrollView style={styles.container}>
       <View style={styles.slideContainer}>
         <ImageSlider images={images} />
@@ -24,20 +25,22 @@ const HomeScreen = () => {
       </View>
         <AnnouncementCard />
     </ScrollView>
+    
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white", // Set background color for the entire screen
+    backgroundColor: "white",
+    //marginTop: -StatusBar.currentHeight, // Set background color for the entire screen
   },
   slideContainer: {
-    width: "100%",
-    height: 300, // Fixed height for the image slider
+    width: "100%", // Fixed height for the image slider
     alignItems: "center",
+    height: 300,
     justifyContent: "center",
     backgroundColor: "white",
-    paddingBottom: 20,
+    marginTop:0,
   },
 });
 export default HomeScreen;

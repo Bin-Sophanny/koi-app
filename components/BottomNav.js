@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons"; // Import MaterialCommunityIcons
-import { TouchableOpacity, StyleSheet, View, Image } from "react-native"; // Import Image
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import MenuScreen from "../screens/MenuScreen";
 import ScanScreen from "../screens/ScanScreen";
 import HistoryScreen from "../screens/HistoryScreen";
 import AccountScreen from "../screens/AccountScreen";
+import MenuHeader from "../components/MenuHeader";
+import ScanButton from "../components/ScanButton";
+import HistoryHeader from "../components/HistoryHeader";
 
 const Tab = createBottomTabNavigator();
 
 const BottomNav = () => {
+  const [selectedTab, setSelectedTab] = useState("Orders");
+  const [selectedSubTab, setSelectedSubTab] = useState("All");
+
+  const handleTabChange = (tab) => {
+    setSelectedTab(tab);
+    setSelectedSubTab("All"); // Reset subtab when main tab changes
+  };
+
+  const handleSubTabChange = (subTab) => {
+    setSelectedSubTab(subTab);
+  };
+
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -22,14 +37,13 @@ const BottomNav = () => {
             if (route.name === "Home") {
               icon = <MaterialCommunityIcons name="home" size={size} color={color} />;
             } else if (route.name === "Menu") {
-              // Custom Bubble Tea Icon
               icon = (
                 <Image
-                  source={require("../assets/bubble-tea.png")} // Path to your image
+                  source={require("../assets/bubble-tea.png")}
                   style={{
-                    width: size, // Match the size of other icons
+                    width: size,
                     height: size,
-                    tintColor: focused ? "#f6962f" : "gray", // Optional: Change color based on focus
+                    tintColor: focused ? "#f6962f" : "gray",
                   }}
                 />
               );
@@ -42,49 +56,73 @@ const BottomNav = () => {
             }
             return icon;
           },
-          tabBarActiveTintColor: "#f6962f", // Gold color for active tab
+          tabBarActiveTintColor: "#f6962f",
           tabBarInactiveTintColor: "gray",
           tabBarStyle: {
             backgroundColor: "white",
             height: 50,
             paddingBottom: 5,
           },
-          // Default tab button behavior for all tabs except "Scan"
           tabBarButton: (props) => (
-            <TouchableOpacity
-              {...props}
-              activeOpacity={0.7} // Set opacity to 0.7 when pressed
-              style={styles.tabButton}
-            />
+            <TouchableOpacity {...props} activeOpacity={0.7} style={styles.tabButton} />
           ),
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Menu" component={MenuScreen} />
-        {/* Custom Scan Button */}
+        <Tab.Screen
+          name="Menu"
+          component={MenuScreen}
+          options={{
+            headerTitle: () => <MenuHeader />,
+          }}
+        />
         <Tab.Screen
           name="Scan"
           component={ScanScreen}
           options={{
-            tabBarLabel: "", // Hide the label for the "Scan" tab
-            tabBarIcon: ({ color, size }) => (
-              <MaterialCommunityIcons name="barcode-scan" size={size} color={color} />
-            ),
-            tabBarButton: (props) => (
-              <View style={styles.scanButtonContainer}>
-                <TouchableOpacity
-                  {...props}
-                  activeOpacity={0.7} // Set opacity to 0.7 when pressed
-                  style={styles.scanButton}
-                >
-                  <MaterialCommunityIcons name="line-scan" size={25} color="white" />
-                </TouchableOpacity>
-              </View>
-            ),
+            tabBarLabel: "",
+            tabBarIcon: ({ color, size }) => <MaterialCommunityIcons name="line-scan" size={size} color={color} />,
+            tabBarButton: (props) => <ScanButton {...props} />,
           }}
         />
-        <Tab.Screen name="History" component={HistoryScreen} />
-        <Tab.Screen name="Account" component={AccountScreen} />
+        <Tab.Screen
+          name="History"
+          component={HistoryScreen}
+          options={{
+            headerTitle: () => (
+              <HistoryHeader
+                selectedTab={selectedTab}
+                selectedSubTab={selectedSubTab}
+                onTabChange={handleTabChange}
+                onSubTabChange={handleSubTabChange}
+              />
+            ),
+            headerStyle: {
+              height: 110, // Set your desired height here
+            },
+          }}
+          initialParams={{ selectedTab, selectedSubTab }}
+        />
+        <Tab.Screen 
+  name="Account" 
+  component={AccountScreen}
+  options={{
+    headerTitle: 'Account', // Set the title
+    headerTitleStyle: {
+      fontWeight: 'bold', // Make the title bold
+    },
+    headerTitleAlign: 'center', // Center the title
+    headerRight: () => (
+      <TouchableOpacity 
+        style={{ marginRight: 15 }} 
+        onPress={() => {}}
+        activeOpacity={0.7}
+      >
+        <MaterialCommunityIcons name="menu" size={24} color="#f6962f" />
+      </TouchableOpacity>
+    ),
+  }}
+/>
       </Tab.Navigator>
     </NavigationContainer>
   );
@@ -92,25 +130,7 @@ const BottomNav = () => {
 
 const styles = StyleSheet.create({
   tabButton: {
-    flex: 1, // Ensure the button takes up the full space of the tab
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  scanButtonContainer: {
-    position: "absolute", // Position the Scan button above the tab bar
-    bottom: 2, // Adjust vertical position
-    width: 80,
-    height: 40,
-    borderRadius: 6, // Circular shape
-    backgroundColor: "white", // Background color for the button
-    justifyContent: "center",
-    alignItems: "center", // Add shadow for elevation effect
-  },
-  scanButton: {
-    width: 35,
-    height: 30,
-    borderRadius: 6, // Circular shape
-    backgroundColor: "#f6962f", // Gold background color
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },

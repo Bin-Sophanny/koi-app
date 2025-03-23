@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 15,
-    padding: 10,
     backgroundColor: "#f9f9f9",
     borderRadius: 8,
     elevation: 2,
@@ -123,7 +122,7 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   cardContent: {
-    marginTop: 10,
+    padding: 10,
   },
   textContainer: {
     flexDirection: "row", // Aligns title/description and button in a row

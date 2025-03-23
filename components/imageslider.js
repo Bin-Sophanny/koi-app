@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Image, Dimensions, StyleSheet } from "react-native";
+import { View, Image, Dimensions, StyleSheet, StatusBar} from "react-native";
 import Swiper from "react-native-swiper";
-const { width } = Dimensions.get("window"); // Get screen width
+const { width,} = Dimensions.get("window"); // Get screen width
 const ImageSlider = ({ images }) => {
   return (
+    <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
     <Swiper
       style={styles.wrapper}
       showsButtons={false} // Hide default navigation buttons
@@ -20,6 +22,7 @@ const ImageSlider = ({ images }) => {
         </View>
       ))}
     </Swiper>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -28,10 +31,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "white",
+    marginBottom:30,
   },
   image: {
     width: width,
-    height: "100%",
+    height: 300,
     resizeMode: 'stretch',
     // Adjust height as needed
   },
@@ -50,7 +55,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 4, // Space between dots
   },
   pagination: {
-    top: 270, // Position dots 10px from the bottom
+    top: 295, // Position dots 10px from the bottom
+  },
+  container: {
+    flex: 1,
   },
 });
 export default ImageSlider;
